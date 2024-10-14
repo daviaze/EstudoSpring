@@ -8,6 +8,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import estudo.spring.domain.dtos.MedicoDTO;
 import estudo.spring.domain.dtos.MedicoPostDTO;
 import estudo.spring.domain.dtos.MedicoPutDTO;
 import estudo.spring.domain.entities.Medico;
@@ -46,10 +47,12 @@ public class MedicoService implements IMedicoService {
 
     @Transactional
     @Override
-    public void put(Long id, MedicoPutDTO medico) {
+    public MedicoDTO put(Long id, MedicoPutDTO medico) {
         try{
             Medico ref = _medicoRepository.getReferenceById(id);
             ref.AtualizaCampos(medico);
+
+            return new MedicoDTO(ref);
         }catch(Exception e){
             throw e;
         }
