@@ -11,7 +11,8 @@ import estudo.spring.domain.entities.Medico;
 
 public interface IMedicoService {
     public Page<Medico> get(Pageable paginacao); 
-    public void post(MedicoPostDTO medico);
+    public MedicoDTO getById(Long id); 
+    public MedicoDTO post(MedicoPostDTO medico);
     public MedicoDTO put(Long id, MedicoPutDTO medico);
     public void delete(Long id);
 }

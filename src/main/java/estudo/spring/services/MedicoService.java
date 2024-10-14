@@ -31,14 +31,25 @@ public class MedicoService implements IMedicoService {
         }
     }
 
+    @Override
+    public MedicoDTO getById(Long id) {
+        try{
+            Medico medico = this._medicoRepository.getReferenceById(id);
+
+            return new MedicoDTO(medico);
+        }catch(Exception e){
+            throw e;
+        }
+    }
 
     @Transactional
     @Override
-    public void post(MedicoPostDTO medico) {
+    public MedicoDTO post(MedicoPostDTO medico) {
         try{
             Medico med = new Medico(medico);
-            System.out.println(med.toString());
             this._medicoRepository.save(med);
+
+            return new MedicoDTO(med);
         }catch(Exception e){
             throw e;
         }

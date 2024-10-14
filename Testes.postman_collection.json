@@ -27,13 +27,32 @@
 			"response": []
 		},
 		{
+			"name": "Get Medico",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8081/medicos",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"medicos"
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "Post Medico",
 			"request": {
 				"method": "POST",
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n  \"nome\": \"Alex da Silva\",\r\n  \"dataNascimento\": \"1985-06-15\",\r\n  \"crm\": \"123525\"\r\n}\r\n",
+					"raw": "{\r\n  \"nome\": \"Dante Silveira\",\r\n  \"dataNascimento\": \"1992-03-11\",\r\n  \"crm\": \"123525\"\r\n}\r\n",
 					"options": {
 						"raw": {
 							"language": "json"

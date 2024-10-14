@@ -7,7 +7,6 @@ import jakarta.validation.constraints.NotBlank;
 public record MedicoPostDTO(
   @NotBlank
   String nome,
-  @NotBlank
  LocalDate dataNascimento,
  @NotBlank
   String crm ) {
