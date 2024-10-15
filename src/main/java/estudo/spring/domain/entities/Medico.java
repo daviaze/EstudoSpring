@@ -1,7 +1,4 @@
 package estudo.spring.domain.entities;
-
-import java.time.LocalDate;
-
 import estudo.spring.domain.dtos.MedicoPostDTO;
 import estudo.spring.domain.dtos.MedicoPutDTO;
 import jakarta.persistence.Entity;

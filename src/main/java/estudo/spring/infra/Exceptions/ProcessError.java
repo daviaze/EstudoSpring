@@ -1,4 +1,4 @@
-package estudo.spring.infra;
+package estudo.spring.infra.Exceptions;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
