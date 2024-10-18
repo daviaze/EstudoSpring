@@ -3,7 +3,6 @@ package estudo.spring.infra.Security;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -27,6 +26,7 @@ public class SecurityConfigurations {
         .sessionManagement(sm -> sm.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
         .authorizeHttpRequests(req -> {
             req.requestMatchers("auth/login").permitAll();
+            req.requestMatchers("auth/register").permitAll();
             req.anyRequest().authenticated()
             .and()
             .addFilterBefore(_securityFilter, UsernamePasswordAuthenticationFilter.class);

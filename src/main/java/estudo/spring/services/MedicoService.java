@@ -11,9 +11,13 @@ import org.springframework.transaction.annotation.Transactional;
 import estudo.spring.domain.dtos.MedicoDTO;
 import estudo.spring.domain.dtos.MedicoPostDTO;
 import estudo.spring.domain.dtos.MedicoPutDTO;
+import estudo.spring.domain.entities.Especialidade;
 import estudo.spring.domain.entities.Medico;
+import estudo.spring.infra.Repositories.IEspecialidadeRepository;
 import estudo.spring.infra.Repositories.IMedicoRepository;
 import estudo.spring.services.interfaces.IMedicoService;
+import estudo.spring.services.results.Response;
+import estudo.spring.services.results.Result;
 
 @Service
 public class MedicoService implements IMedicoService {
@@ -21,11 +25,14 @@ public class MedicoService implements IMedicoService {
     @Autowired
     private IMedicoRepository _medicoRepository;
 
+    @Autowired
+    private IEspecialidadeRepository _EspecialidadeRepository;
+
     @Override
-    public Page<Medico> get(Pageable paginacao) {
+    public Response get(Pageable paginacao) {
         try{
             Page<Medico> medicos = this._medicoRepository.findAll(paginacao);
-            return medicos;
+            return Result.onSuccess(medicos);
         }catch(Exception e){
             throw e;
         }
@@ -46,7 +53,10 @@ public class MedicoService implements IMedicoService {
     @Override
     public MedicoDTO post(MedicoPostDTO medico) {
         try{
-            Medico med = new Medico(medico);
+            System.err.println(medico);
+            Especialidade especialidade =
+             _EspecialidadeRepository.getReferenceById(medico.idEspecialidade());
+            Medico med = new Medico(medico, especialidade);
             this._medicoRepository.save(med);
 
             return new MedicoDTO(med);

@@ -6,6 +6,7 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+import estudo.spring.services.results.Result;
 import jakarta.persistence.EntityNotFoundException;
 
 @RestControllerAdvice
@@ -23,6 +24,10 @@ public class ProcessError {
         return ResponseEntity.badRequest().body(errors.stream().map(FieldErrorsValidation::new).toList());
     }
 
+    @ExceptionHandler(ValidationException.class)
+    public ResponseEntity processErrorValidation(ValidationException ex){
+        return ResponseEntity.badRequest().body(Result.onFail(ex));
+    }
     //Record para qual o erro será convertido no tratamento
     private record FieldErrorsValidation(String field, String message){
         public FieldErrorsValidation(FieldError erro) {

@@ -1,4 +1,5 @@
 package estudo.spring.controller;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -11,39 +12,36 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.util.UriBuilder;
 import org.springframework.web.util.UriComponentsBuilder;
-
-import estudo.spring.domain.dtos.MedicoDTO;
-import estudo.spring.domain.dtos.MedicoPostDTO;
-import estudo.spring.domain.dtos.MedicoPutDTO;
-import estudo.spring.domain.entities.Medico;
-import estudo.spring.services.interfaces.IMedicoService;
-import estudo.spring.services.results.Response;
+import estudo.spring.domain.dtos.PacienteDTO;
+import estudo.spring.domain.dtos.PacientePostDTO;
+import estudo.spring.domain.dtos.PacientePutDTO;
+import estudo.spring.domain.entities.Paciente;
+import estudo.spring.services.interfaces.IPacienteService;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 
 @RestController
-@RequestMapping("medicos")
-public class MedicoController {    
+@RequestMapping("pacientes")
+public class PacienteController {
     @Autowired
-    private IMedicoService _medicoService;
+    private IPacienteService _pacienteService;
 
     @GetMapping
-    public ResponseEntity<Response> getAll(Pageable paginacao){
-        var page = _medicoService.get(paginacao);
+    public ResponseEntity<Page<Paciente>> getAll(Pageable paginacao){
+        var page = _pacienteService.get(paginacao);
         return ResponseEntity.ok(page);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<MedicoDTO> getById(@PathVariable @NotNull Long id){
-        var medico = _medicoService.getById(id);
+    public ResponseEntity<PacienteDTO> getById(@PathVariable @NotNull Long id){
+        var medico = _pacienteService.getById(id);
         return ResponseEntity.ok(medico);
     }
 
     @PostMapping
-    public ResponseEntity post(@RequestBody @Valid MedicoPostDTO medicoDTO, UriComponentsBuilder uriBuilder){
-        var medico = _medicoService.post(medicoDTO);
+    public ResponseEntity post(@RequestBody @Valid PacientePostDTO pacienteDTO, UriComponentsBuilder uriBuilder){
+        var medico = _pacienteService.post(pacienteDTO);
 
         var uri = uriBuilder.path("/medicos/{id}").buildAndExpand(medico.id()).toUri();
 
@@ -51,15 +49,15 @@ public class MedicoController {
     }
 
     @PatchMapping("/{id}")
-    public ResponseEntity put(@RequestBody @Valid MedicoPutDTO medicoDTO, @PathVariable @NotNull Long id){
-        _medicoService.put(id, medicoDTO);
+    public ResponseEntity put(@RequestBody @Valid PacientePutDTO pacienteDTO, @PathVariable @NotNull Long id){
+        _pacienteService.put(id, pacienteDTO);
 
         return ResponseEntity.noContent().build();
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity delete(@PathVariable @NotNull Long id){
-        _medicoService.delete(id);
+        _pacienteService.delete(id);
 
         return ResponseEntity.noContent().build();
     }
