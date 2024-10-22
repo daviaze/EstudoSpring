@@ -13,5 +13,4 @@ public class Response {
         }
         this.error = error;
     }
-    
 }
